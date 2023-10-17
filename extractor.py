@@ -24,7 +24,7 @@ text = re.sub(r"FIGURE", "5.999 FIGURE", text)
 section_reg = r"\n(?=5\.\d)"
 # split the text to a new line 
 section = re.split(section_reg, text)
-
+#%%
 # empty lists 
 tag = []
 name = []
@@ -34,12 +34,19 @@ for line in section:
         try:
                 lsplit = re.split(r"(?<=.\d)\s+", line)
                 tag.append(lsplit[0])
+        except:
+                tag.append('')
+        try:
                 second = re.split(r"\.\s+", lsplit[1], 1)
                 name.append(second[0])
+        except:
+                name.append('')
+        try:
                 second[1] = re.sub(r"\n", "", second[1]) 
                 define.append(second[1])
         except:
-                continue
+                define.append('')
+        
 
 # create pandas dataframe from lists
 df = pd.DataFrame(list(
